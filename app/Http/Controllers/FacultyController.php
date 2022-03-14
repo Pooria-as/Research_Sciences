@@ -14,7 +14,8 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        //
+        $faculties=Faculty::paginate(20);
+        return view("Dashboard.Faculty.index",compact("faculties"));
     }
 
     /**
@@ -24,7 +25,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        //
+        return view("Dashboard.Faculty.create");
     }
 
     /**

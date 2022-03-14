@@ -11,6 +11,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware("AdminAccess")->except(["index","show"]);
+    }
+
     /**
      * Display a listing of the resource.
      *

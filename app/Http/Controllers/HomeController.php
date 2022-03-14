@@ -27,11 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd("hi");
-        // $students = Student::all();
-        // $fields = Field::all();
-        // $grades = Grade::all();
-        // $Faculties = Faculty::all();
-        return view('Dashboard.layout.master');
+        $students = Student::all();
+        $fields = Field::all();
+        $grades = Grade::all();
+        $Faculties = Faculty::all();
+        return view('Dashboard.layout.master',compact("students","fields","grades","Faculties"));
     }
 }

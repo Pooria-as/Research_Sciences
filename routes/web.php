@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\HomeController;
@@ -126,6 +127,14 @@ Route::prefix('سامانه')
             StudentController::class,
             'update',
         ])->name('student.update');
+
+        //Faculty
+        Route::get('/هیات-علمی', [FacultyController::class, 'index'])->name(
+            'faculty.index'
+        );
+        Route::get('/هیات-علمی/افزودن', [FacultyController::class, 'create'])->name(
+            'faculty.create'
+        );
     });
 
 Auth::routes();

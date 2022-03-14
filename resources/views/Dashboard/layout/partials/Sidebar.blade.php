@@ -34,13 +34,15 @@ with font-awesome or any other icon font library -->
                         <p>دانشجو ها</p>
                     </a>
                 </li>
+                @if (Auth::user()->role == 1)
+
                 <li class="nav-item">
                     <a href="{{ route('student.create') }}" class="nav-link">
                         <i class="fa fa-plus nav-icon"></i>
                         <p>افزودن دانشجو  </p>
                     </a>
                 </li>
-
+                @endif
             </ul>
         </li>
         <li class="nav-item has-treeview">
@@ -96,13 +98,13 @@ with font-awesome or any other icon font library -->
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="pages/charts/chartjs.html" class="nav-link">
+                    <a href="{{ route("faculty.index") }}" class="nav-link">
                         <i class="fa fa-bookmark nav-icon"></i>
                         <p>تمامی هیت علمی</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/charts/chartjs.html" class="nav-link">
+                    <a href="{{ route("faculty.create") }}" class="nav-link">
                         <i class="fa fa-plus nav-icon"></i>
                         <p>افزودن هیت علمی</p>
                     </a>

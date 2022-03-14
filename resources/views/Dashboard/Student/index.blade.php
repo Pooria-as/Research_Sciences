@@ -17,10 +17,11 @@
 
             </div>
             <div class="card-body">
-                <a href="{{ route('student.create') }}" class="btn btn-sm btn-outline-success">افزودن دانشجو</a>
-
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder=" 👀 جست وجو بر اساس نام خانوادگی" title="Type in a name"
-                    class="form-control m-1">
+                @if (Auth::user()->role == 1)
+                    <a href="{{ route('student.create') }}" class="btn btn-sm btn-outline-success">افزودن دانشجو</a>
+                @endif
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder=" 👀 جست وجو بر اساس نام خانوادگی"
+                    title="Type in a name" class="form-control m-1">
                 <table class="table table-striped table-bordered" id="myTable">
                     <thead>
                         <tr>
@@ -32,10 +33,10 @@
                             <th scope="col">سال ورود</th>
                             <th scope="col">رشته تحصیلی</th>
                             <th scope="col">اطلاعات بیشتر</th>
-                            <th scope="col">ویرایش</th>
-
-                            <th scope="col">حذف</th>
-
+                            @if (Auth::user()->role == 1)
+                                <th scope="col">ویرایش</th>
+                                <th scope="col">حذف</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -60,23 +61,25 @@
                                     </a>
 
                                 </td>
-                                <td>
-                                    <a href="{{ route('student.edit', $student->national_code) }}"
-                                        class="btn btn-secondary">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <form action="{{ route('student.destroy', $student->id) }}" method="POST">
-                                        @csrf
-                                        @method("DELETE")
-                                        <button class="btn-sm  btn-danger"
-                                            onclick="return confirm('آیا میخواهید دانشجو را حذف کنید ؟?');" type="submit">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-
+                                @if (Auth::user()->role == 1)
+                                    <td>
+                                        <a href="{{ route('student.edit', $student->national_code) }}"
+                                            class="btn btn-secondary">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('student.destroy', $student->id) }}" method="POST">
+                                            @csrf
+                                            @method("DELETE")
+                                            <button class="btn-sm  btn-danger"
+                                                onclick="return confirm('آیا میخواهید دانشجو را حذف کنید ؟?');"
+                                                type="submit">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
 

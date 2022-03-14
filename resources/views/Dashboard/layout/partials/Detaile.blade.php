@@ -14,7 +14,7 @@
                     <div class="icon">
                         <i class="fa fa-user"></i>
                     </div>
-                    <a href="#" class="small-box-footer">اطلاعات بیشتر <i
+                    <a href="{{ route("student.index") }}" class="small-box-footer">اطلاعات بیشتر <i
                             class="fa fa-arrow-circle-left"></i></a>
                 </div>
             </div>
@@ -24,15 +24,15 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         <h3>
-
+                            {{ $grades->count() }}
                         </h3>
 
                         <p>مقطع تحصیلی</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="fa fa-wpforms"></i>
                     </div>
-                    <a href="#" class="small-box-footer">اطلاعات بیشتر <i
+                    <a href="{{ route("grade.index") }}" class="small-box-footer">اطلاعات بیشتر <i
                             class="fa fa-arrow-circle-left"></i></a>
                 </div>
             </div>
@@ -42,12 +42,13 @@
                 <div class="small-box bg-warning">
                     <div class="inner">
                         <h3>
+                            {{ $Faculties->count() }}
                         </h3>
 
                         <p>هیت علمی</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="fa fa-user-circle-o"></i>
                     </div>
                     <a href="#" class="small-box-footer">اطلاعات بیشتر <i
                             class="fa fa-arrow-circle-left"></i></a>
@@ -58,14 +59,15 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3></h3>
+                        <h3>
+                        {{$fields->count()}}</h3>
 
                         <p>رشته تحصیلی</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                        <i class="fa fa-book "></i>
                     </div>
-                    <a href="#" class="small-box-footer">اطلاعات بیشتر <i
+                    <a href="{{ route("field.index") }}" class="small-box-footer">اطلاعات بیشتر <i
                             class="fa fa-arrow-circle-left"></i></a>
                 </div>
             </div>
