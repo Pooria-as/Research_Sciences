@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faculty;
+use App\Models\Field;
+use App\Models\Grade;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        dd("hi");
+        // $students = Student::all();
+        // $fields = Field::all();
+        // $grades = Grade::all();
+        // $Faculties = Faculty::all();
+        return view('Dashboard.layout.master');
     }
 }

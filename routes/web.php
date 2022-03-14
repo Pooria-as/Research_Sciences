@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\AdminAccess;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +26,7 @@ Route::get('/', function () {
 Route::prefix('سامانه')
     ->middleware('auth')
     ->group(function () {
-        Route::get('/', function () {
-            return view('Dashboard.layout.master');
-        })->name("System");
+        Route::get('/', [HomeController::class, 'index'])->name('System');
         Route::get('/مقاطع-تحصیلی', [GradeController::class, 'index'])->name(
             'grade.index'
         );
@@ -95,20 +93,44 @@ Route::prefix('سامانه')
             'store',
         ])->name('user.store');
 
+        //students
+        Route::get('/دانشجو', [StudentController::class, 'index'])->name(
+            'student.index'
+        );
+        Route::get('/دانشجو/{student:national_code}', [
+            StudentController::class,
+            'show',
+        ])->name('student.show');
 
-            //students
-            Route::get('/دانشجو', [StudentController::class, 'index'])->name(
-                'student.index'
-            );
+        Route::get('/افزودن/دانشجو', [
+            StudentController::class,
+            'create',
+        ])->name('student.create');
 
-            Route::get('/دانشجو/افزودن', [StudentController::class, 'create'])->name(
-                'student.create'
-            );
+        Route::post('/دانشجو/افزودن', [
+            StudentController::class,
+            'store',
+        ])->name('student.store');
+
+        Route::delete('{student}/دانشجو/حذف', [
+            StudentController::class,
+            'destroy',
+        ])->name('student.destroy');
+
+        Route::get('{student:national_code}/دانشجو/ویرایش', [
+            StudentController::class,
+            'edit',
+        ])->name('student.edit');
+
+        Route::put('{student:national_code}/دانشجو/ویرایش', [
+            StudentController::class,
+            'update',
+        ])->name('student.update');
     });
 
 Auth::routes();
 
-Route::get('/home', [
-    App\Http\Controllers\HomeController::class,
-    'index',
-])->name('home');
+// Route::get('/home', [
+//     App\Http\Controllers\HomeController::class,
+//     'index',
+// ])->name('home');

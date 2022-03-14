@@ -23,8 +23,8 @@
                             </p>
                         @else
                         <a href="{{ route("field.create") }}" class="btn btn-success">افزودن رشته</a>
-                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder=" 👀 جست و جو"
-                                title="Type in a name" class="form-control m-1">
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder=" 👀 جست و جو"
+                                    title="Type in a name" class="form-control m-1">
 
                             <table class="table table-striped table-bordered" id="myTable">
                                 <thead>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId("field_id")->constrained()->onDelete("cascade");
             $table->string("image")->nullable();
             $table->string("national_code");
+
             $table->enum("Gender",['male','female']);
             $table->timestamps();
         });

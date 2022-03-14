@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use App\Models\Field;
 use App\Models\Grade;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
 {
@@ -16,7 +18,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::paginate(10);
         return view('Dashboard.Student.index', compact('students'));
     }
 
@@ -38,9 +40,30 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        //
+        $image = $request->image;
+        $image_unique = hexdec(uniqid());
+        $image_get_extention = strtoupper($image->getClientOriginalExtension());
+        $image_name = $image_unique . '.' . $image_get_extention;
+        $image_location = 'Dashboard/Students/img/';
+        $last_image = $image_location . $image_name;
+        $image->move($image_location, $image_name);
+
+        Student::create([
+            'name' => $request->name,
+            'family' => $request->family,
+            'grade_id' => $request->grade_id,
+            'field_id' => $request->field_id,
+            'image' => $last_image,
+            'birthdate' => $request->birthdate,
+            'national_code' => $request->national_code,
+            'entry_date' => $request->entry_date,
+            'Gender' => $request->Gender,
+        ]);
+
+        Alert::success('موفق ✔', 'دانشجو با موفقیت افزوده شد ');
+        return redirect(route('student.index'));
     }
 
     /**
@@ -51,7 +74,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return view('Dashboard.Student.show', compact('student'));
     }
 
     /**
@@ -62,7 +85,12 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $grades = Grade::all();
+        $fields = Field::all();
+        return view(
+            'Dashboard.Student.edit',
+            compact('student', 'grades', 'fields')
+        );
     }
 
     /**
@@ -74,7 +102,44 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $old_image = $request->old_image;
+        $image = $request->image;
+        if ($image) {
+            $image_unique = hexdec(uniqid());
+            $image_get_extention = strtoupper(
+                $image->getClientOriginalExtension()
+            );
+            $image_name = $image_unique . '.' . $image_get_extention;
+            $image_location = 'Dashboard/Students/img/';
+            $last_image = $image_location . $image_name;
+            $image->move($image_location, $image_name);
+            // unlink($old_image);
+            $student->update([
+                'name' => $request->name,
+                'family' => $request->family,
+                'grade_id' => $request->grade_id,
+                'field_id' => $request->field_id,
+                'birthdate' => $request->birthdate,
+                'national_code' => $request->national_code,
+                'entry_date' => $request->entry_date,
+                'Gender' => $request->Gender,
+                'image' => $last_image,
+            ]);
+        } else {
+            $student->update([
+                'name' => $request->name,
+                'family' => $request->family,
+                'grade_id' => $request->grade_id,
+                'field_id' => $request->field_id,
+                'birthdate' => $request->birthdate,
+                'national_code' => $request->national_code,
+                'entry_date' => $request->entry_date,
+                'Gender' => $request->Gender,
+            ]);
+        }
+        Alert::success('موفق ✔', 'دانشجو با موفقیت ویرایش شد ');
+
+        return redirect(route("student.index"));
     }
 
     /**
@@ -85,6 +150,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        Alert::success('موفق ✔', 'دانشجو با موفقیت حذف شد ');
+        return back();
     }
 }

@@ -16,6 +16,7 @@ class Student extends Model
         'birthdate',
         'national_code',
         'Gender',
+        'entry_date',
     ];
 
     public function grade()
