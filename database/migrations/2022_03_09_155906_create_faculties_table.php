@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("image");
             $table->string("degree");
             $table->string("email");
+            //change it to string datetime to string
             $table->dateTime("birth_date");
             $table->string("Univercity_name");
             $table->text("about_me");

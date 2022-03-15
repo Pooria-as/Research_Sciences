@@ -135,6 +135,28 @@ Route::prefix('سامانه')
         Route::get('/هیات-علمی/افزودن', [FacultyController::class, 'create'])->name(
             'faculty.create'
         );
+        Route::get('/هیات-علمی/تمامی', [FacultyController::class, 'all'])->name(
+            'faculty.all'
+        );
+        Route::post('/هیات-علمی/افزودن', [FacultyController::class, 'store'])->name(
+            'faculty.store'
+        );
+        Route::get('/هیات-علمی/{faculty}/اطلاعات', [FacultyController::class, 'show'])->name(
+            'faculty.show'
+        );
+
+        Route::get('ویرایش/هیات-علمی/{faculty}/اطلاعات', [FacultyController::class, 'edit'])->name(
+            'faculty.edit'
+        );
+        Route::put('ویرایش/هیات-علمی/{faculty}/اطلاعات', [FacultyController::class, 'update'])->name(
+            'faculty.update'
+        );
+
+
+        Route::delete('/هیات-علمی/{faculty}/اطلاعات', [
+            FacultyController::class,
+            'destroy',
+        ])->name('faculty.destroy');
     });
 
 Auth::routes();

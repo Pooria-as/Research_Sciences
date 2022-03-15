@@ -3,67 +3,36 @@
 @section('route_2', 'لیست هیات علمی')
 @section('content')
 
-
     <div class="container">
-
-
         <div class="col-md-12">
-            <a href="" class="btn btn-sm btn-outline-secondary m-2">
-                اعضای هیست علمی دانشگاه
-            </a>
-            {{-- <table class="table  table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">نام</th>
-                        <th scope="col">ایمیل</th>
-                        <th scope="col">شماره تماس</th>
-                        <th scope="col">نقش</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                @if (Str::length($user->tell) == 0)
-                                    <span class="badge badge-danger">ندارد</span>
-                                @else
-                                {{ $user->tell }}
-                                @endif
-                            </td>
-                            <td>
-                                @if ($user->role == 1)
-                                    <button class="btn btn-success">
-                                        ادمین ✔
-                                    </button>
-                                @else
-                                    <button class="btn btn-primary">
-                                        نویسنده 👩‍💻
-                                    </button>
-                                @endif
-
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table> --}}
-
-
+           @if(Auth::user()->role==1)
+           <a href="{{ route("faculty.all") }}" class="btn btn-sm btn-outline-secondary m-2">
+            تمامی هیت علمی
+        </a>
+           @endif
+            <div class="row">
+                @foreach ($faculties as $faculty)
+                    <div class="col-md-4">
+                        <div class="card" style="width:200px;">
+                            <img class="card-img-top" src="/{{ $faculty->image }}" width="100" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $faculty->name }} {{ $faculty->family }}</h5>
+                                <p class="card-text m-1">
+                                    سمت :{{ $faculty->degree }}
+                                    </p>
+                                    <p>
+                                        دانشگاه :{{$faculty->Univercity_name  }}
+                                    </p>
+                                    <div class="d-flex justify-content-around">
+                                        <a href="{{ route("faculty.show",$faculty) }}" class="btn btn-primary">بیشتر</a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-
     </div>
-
-
-
-
-
-
 
 
 @endsection
